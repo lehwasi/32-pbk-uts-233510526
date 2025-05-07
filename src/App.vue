@@ -2,8 +2,14 @@
   <div>
     <h1>To-Do List</h1>
     <input v-model="newTodo" @keyup.enter="addTodo" placeholder="Tambah tugas..." />
+    
+    <div>
+      <button @click="filter = 'all'">Semua</button>
+      <button @click="filter = 'active'">Belum Selesai</button>
+    </div>
+
     <ul>
-      <li v-for="todo in todos" :key="todo.id">
+      <li v-for="todo in filteredTodos" :key="todo.id">
         <input type="checkbox" v-model="todo.completed" />
         <span :style="{ textDecoration: todo.completed ? 'line-through' : 'none' }">
           {{ todo.text }}
@@ -19,7 +25,16 @@ export default {
   data() {
     return {
       newTodo: '',
-      todos: []
+      todos: [],
+      filter: 'all'
+    }
+  },
+  computed: {
+    filteredTodos() {
+      if (this.filter === 'active') {
+        return this.todos.filter(todo => !todo.completed);
+      }
+      return this.todos;
     }
   },
   methods: {
