@@ -8,6 +8,7 @@
         <span :style="{ textDecoration: todo.completed ? 'line-through' : 'none' }">
           {{ todo.text }}
         </span>
+        <button @click="removeTodo(todo.id)">Hapus</button>
       </li>
     </ul>
   </div>
@@ -30,6 +31,9 @@ export default {
         completed: false
       });
       this.newTodo = '';
+    },
+    removeTodo(id) {
+      this.todos = this.todos.filter(todo => todo.id !== id);
     }
   }
 }
