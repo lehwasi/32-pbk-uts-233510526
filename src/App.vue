@@ -8,7 +8,7 @@
       <button @click="filter = 'active'">Belum Selesai</button>
     </div>
 
-    <ul>
+    <ul v-if="filteredTodos.length">
       <li v-for="todo in filteredTodos" :key="todo.id">
         <input type="checkbox" v-model="todo.completed" />
         <span :style="{ textDecoration: todo.completed ? 'line-through' : 'none' }">
@@ -17,6 +17,7 @@
         <button @click="removeTodo(todo.id)">Hapus</button>
       </li>
     </ul>
+    <p v-else>Tidak ada tugas yang ditampilkan</p>
   </div>
 </template>
 
